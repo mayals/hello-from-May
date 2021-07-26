@@ -1,7 +1,5 @@
 from django.db import models
-# Utility that stores the date and time in our Timezone
 from django.utils import timezone
-# Imports the User - This maps the Task to the Users of our App.(Users as in Admin console)
 from django.contrib.auth.models import User
 
 
