@@ -3,11 +3,37 @@
 
 
 {% block content %}
+><br><br><br><br>
+<table class="table table-light">
 
-{% for task in tasks %}
-{{ task.T_name }}
-{% endfor %}
+  <thead class="thead-warning">
+		<th colspan=4>
+			<h2>Active Tasks</h2>
+		</th>
+	</thead>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  
+  <tbody> 
+   {% for task in tasks %}
+    <tr>
+      <th scope="row">{{ task.id }}</th>
+      <td>{{ task.T_name }}</td>
+      <td>{{ task.T_name }}</td>
+      <td>{{ task.T_name }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
 
 {{ now }}
 
 {% endblock content  %}
+
