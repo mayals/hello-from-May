@@ -18,3 +18,4 @@ class Task(models.Model):
     class Meta:
         ordering = ('-T_published',)
 
+
