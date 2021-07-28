@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from .models import Task
 from django.utils import timezone
-# Create your views here.
+from .forms import AddTask
 
 
 # class TaskListView(ListView):
@@ -19,7 +19,15 @@ from django.utils import timezone
 
 def tasks(request):
     tasks = Task.objects.filter(T_status=False)
-    context={
-        'tasks': tasks ,
+    
+
+
+    if request.method == 'POST':
+        form = AddTask(request.POST) 
+    else:
+        form = AddTask()    
+    context = {
+        'tasks': tasks,
+        'form' : form ,
     }
-    return render(request,'todo/index.html',context)
+    return render(request, 'todo/index.html', context)

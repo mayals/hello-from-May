@@ -1,5 +1,5 @@
 {% extends 'base.html'  %}
-
+{% load crispy_forms_tags %}
 
 
 {% block content %}
@@ -17,32 +17,50 @@
                 {% for task in tasks %}
                   <tr>
                     <td>
-                    
-                    <div class='input-group-text'>
-                     
                         <div class='input-group input-group-lg'>
                          <h3><input  type="checkbox">
                           <span>{{ task.T_name }}</span></h3>
                        </div>
-                  
-                    </div>
-                    
+                    </td>
+                    <td class='float-right btn btn-sm btn-danger'>
+                        <i class="far fa-trash-alt fa-2x"></i>
                     </td>
                     
-                
-                    <td class='btn btn-sm btn-secondary'><i class="far fa-edit fa-2x"></i></td>
-                    <td class='btn btn-sm btn-danger'><i class="far fa-trash-alt fa-2x"></i></td>   
+                    <td class='float-right btn btn-sm btn-secondary mr-2'>
+                        <i class="far fa-edit fa-2x"></i>
+                    </td>
+                       
                   </tr>     
                 {% endfor %}                
+                  
+                  <tr class="card-footer bg-light">
+                   
+                    <form method='POST' action="">
+                      <td>
+                        <input class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 60 characters)">
+                      </td>
+                      <td>
+                        <button type="submit" class="btn btn-success float-right" id="add_task_btn"
+                          title="Add a New Task"><i class="fas fa-plus-circle fa-2x"></i> Task</button>
+                      </td>
+                    </form>
+                 
+                  </tr>
             </tbody>
         </table>
 
     </div>
-    <div class="card-footer bg-light"><form><button>add task</button></form></div>
+       
+            
+
+            
+     
+    </div>
 
 
 
-  </div>
+
+
 
 </div>
 
