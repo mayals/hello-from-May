@@ -18,32 +18,31 @@
        
     <div class="card-body bg-light table-responsive">
    
-        <table class="table table-hover">
+        <table class="table table-hover table-sm">
             <tbody> 
                 {% for task in tasks %}
                   <tr>
                     <td>
-                        <h3>
+                       
                         {% if task.T_status == False %}
-                            <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
-                              not done
+                             <h5 class='font-weight-bold'><a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                             <i class="text-secondary far fa-clock fa-2x"></i>
                             </a>
-                            <p>{{ task.T_name }}</p>
+                            <span>{{ task.T_name }}</span></h5>
                         {% else %}
-                            <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
-                             done
+                            <h5 class='font-weight-light text-muted'><a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                            <i class="text-success fas fa-check fa-2x"></i>
                             </a> 
-                             <p><del> {{ task.T_name }}</del></p>
-                        {% endif %}     
-                          
-                       </h3>
+                             <span><del> {{ task.T_name }}</del></span></h5>
+                        {% endif %}        
+                       
                     </td>
-                    <td class='float-right btn btn-sm btn-danger'>
-                        <i class="far fa-trash-alt fa-2x"></i>
+                    <td class='float-right btn btn-sm btn-danger p-2'>
+                        <i class="far fa-trash-alt"></i>
                     </td>
                     
-                    <td class='float-right btn btn-sm btn-secondary mr-2'>
-                        <i class="far fa-edit fa-2x"></i>
+                    <td class='float-right btn btn-sm btn-secondary mr-2 p-2'>
+                        <i class="far fa-edit"></i>
                     </td>
                        
                   </tr>     
@@ -64,7 +63,7 @@
                     <form method='POST' action="">
                     {% csrf_token %}
                       <td>
-                        <input name='T_name' class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 60 characters)">
+                        <input name='T_name' class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 30 characters)">
                       </td>
                       <td>
                         <button type="submit" class="btn btn-success float-right" id="add_task_btn"

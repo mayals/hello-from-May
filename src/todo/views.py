@@ -48,7 +48,7 @@ def tasks(request):
 
 
 def change_status(request, task_id):
-    tasks = Task.objects.filter()
+    tasks = Task.objects.all()
     task = get_object_or_404(Task,id=task_id)
     if task.T_status == False:
         task.T_status = True
@@ -58,8 +58,5 @@ def change_status(request, task_id):
         task.T_status = False
         task.save()
 
-    context ={
-        'tasks': tasks,
-        'task.T_status': task.T_status,
-    }
-    return render(request, 'todo/index.html', context)
+    return redirect('todo:tasks')
+    
