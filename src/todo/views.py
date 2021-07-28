@@ -60,3 +60,13 @@ def change_status(request, task_id):
 
     return redirect('todo:tasks')
     
+
+
+def task_delete(request, task_id):
+    pass
+
+
+
+
+def task_edit(request, task_id):
+    pass

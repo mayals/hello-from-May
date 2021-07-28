@@ -20,26 +20,33 @@
                 <tbody> 
                       {% for task in tasks %}
                         <tr>
-                            <td>
-                              
+                            <td>      
                                 {% if task.T_status == False %}
-                                    <h5 class='font-weight-bold'><a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
-                                    <i class="text-secondary far fa-clock fa-2x"></i>
-                                    </a>
-                                    <span>{{ task.T_name }}</span></h5>
+                                    <h5 class='font-weight-bold'>
+                                      <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                                      <i class="text-secondary far fa-clock fa-2x"></i>
+                                      </a>
+                                      <span>{{ task.T_name }}</span>
+                                    </h5>
                                 {% else %}
-                                    <h5 class='font-weight-light text-muted'><a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
-                                    <i class="text-success fas fa-check fa-2x"></i>
-                                    </a> 
-                                    <span><del> {{ task.T_name }}</del></span></h5>
-                                {% endif %}        
-                              
+                                    <h5 class='font-weight-light text-muted'>
+                                      <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                                      <i class="text-success fas fa-check fa-2x"></i>
+                                      </a> 
+                                      <span><del> {{ task.T_name }}</del></span>
+                                    </h5>
+                                {% endif %} 
                             </td>
-                            <td class='float-right btn btn-sm btn-danger p-2'>
-                                <i class="far fa-trash-alt"></i>
+                            <td>
+                              <a href="{% url 'todo:task_edit' task_id=task.id %}"  class='float-right btn'>
+                                  <i class=" text-info far fa-edit fa-1x"></i>
+                              </a>
                             </td>
-                            <td class='float-right btn btn-sm btn-secondary mr-2 p-2'>
-                                <i class="far fa-edit"></i>
+
+                            <td>
+                              <a href="{% url 'todo:task_delete' task_id=task.id %}"  class='float-right btn' >
+                                  <i class="text-danger far fa-trash-alt fa-1x"></i>
+                              </a>
                             </td>    
                         </tr>     
                         {% endfor %}                
