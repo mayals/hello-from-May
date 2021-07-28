@@ -3,7 +3,13 @@
 
 
 {% block content %}
-><br><br><br><br>
+
+
+
+
+<br><br><br><br><br><br><br><br>
+
+
 <div class='container'>
 
 <div class="card bg-info mb-3">
@@ -17,10 +23,20 @@
                 {% for task in tasks %}
                   <tr>
                     <td>
-                        <div class='input-group input-group-lg'>
-                         <h3><input  type="checkbox">
-                          <span>{{ task.T_name }}</span></h3>
-                       </div>
+                        <h3>
+                        {% if task.T_status == False %}
+                            <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                              not done
+                            </a>
+                            <p>{{ task.T_name }}</p>
+                        {% else %}
+                            <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                             done
+                            </a> 
+                             <p><del> {{ task.T_name }}</del></p>
+                        {% endif %}     
+                          
+                       </h3>
                     </td>
                     <td class='float-right btn btn-sm btn-danger'>
                         <i class="far fa-trash-alt fa-2x"></i>
@@ -32,12 +48,23 @@
                        
                   </tr>     
                 {% endfor %}                
-                  
+ <tr>                 
+{% if messages %}
+<ul class="messages alert alert-warning" role="alert">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+</tr>
+
                   <tr class="card-footer bg-light">
                    
                     <form method='POST' action="">
+                    {% csrf_token %}
                       <td>
-                        <input class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 60 characters)">
+                        <input name='T_name' class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 60 characters)">
                       </td>
                       <td>
                         <button type="submit" class="btn btn-success float-right" id="add_task_btn"
