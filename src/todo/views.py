@@ -19,6 +19,7 @@ from django.contrib import messages
 
 def tasks(request):
     tasks = Task.objects.all()
+    
     if request.method == 'POST':
         form = AddTask(request.POST)
         if 'T_name' in request.POST:
