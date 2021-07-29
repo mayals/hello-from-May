@@ -18,7 +18,7 @@ from django.contrib import messages
 
 
 def tasks(request):
-    tasks = Task.objects.filter()
+    tasks = Task.objects.all()
     if request.method == 'POST':
         form = AddTask(request.POST)
         if 'T_name' in request.POST:
@@ -42,9 +42,15 @@ def tasks(request):
     
     context = {
         'tasks': tasks,
+        'tasks_done': tasks.filter(T_status=True),
+        'tasks_not_done': tasks.filter(T_status=False),
         'form' : form ,
     }
     return render(request, 'todo/index.html', context)
+
+
+
+
 
 
 def change_status(request, task_id):
