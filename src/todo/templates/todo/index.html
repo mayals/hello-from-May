@@ -11,14 +11,27 @@
 
 
 <div class='container'>
-    <div class="card bg-info mb-3">
 
+
+    <div class="card bg-info mb-3">
       <div class="card-header"><h2 class="text-light text-center">Active Tasks</h2></div>   
         <div class="card-body bg-light table-responsive">
-      
             <table class="table table-hover table-sm">
-                <tbody> 
-                      {% for task in tasks %}
+              <tbody>
+               {% comment %}start row  {% endcomment %}
+                     {% comment %} messages {% endcomment %}
+                        <tr>                 
+                          {% if messages %}
+                            <ul class="messages alert alert-warning" role="alert">
+                                {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                          {% endif %}
+                        </tr>
+                        {% comment %} end messages  {% endcomment %}
+              {% comment %} start  end row  {% endcomment %}
+                {% for task in tasks_not_done %}
                         <tr>
                             <td>      
                                 {% if task.T_status == False %}
@@ -37,28 +50,24 @@
                                     </h5>
                                 {% endif %} 
                             </td>
+                            {% comment %} edit task button  {% endcomment %}
                             <td>
                               <a href="{% url 'todo:task_edit' task_id=task.id %}"  class='float-right btn'>
                                   <i class=" text-info far fa-edit fa-1x"></i>
                               </a>
                             </td>
-
+                            {% comment %} delete task button  {% endcomment %}
                             <td>
                               <a href="{% url 'todo:task_delete' task_id=task.id %}"  class='float-right btn' >
                                   <i class="text-danger far fa-trash-alt fa-1x"></i>
                               </a>
                             </td>    
                         </tr>     
-                        {% endfor %}                
-                        <tr>                 
-                          {% if messages %}
-                          <ul class="messages alert alert-warning" role="alert">
-                              {% for message in messages %}
-                              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                              {% endfor %}
-                          </ul>
-                          {% endif %}
-                        </tr>
+                {% endfor %} 
+                 {% comment %} end tasks not done tble{% endcomment %}
+                        {% comment %}start end row  {% endcomment %}
+                        {% comment %} start row add new task form {% endcomment %}
+                        {% comment %} add new task form {% endcomment %}
                         <tr class="card-footer bg-light">
                           <form method='POST' action="">
                           {% csrf_token %}
@@ -70,14 +79,55 @@
                               title="Add a New Task"><i class="fas fa-plus-circle fa-2x"></i> Task</button>
                           </td>
                         </tr>
-                        </form> 
+                        </form>
+                        {% comment %}end add new task form  {% endcomment %}
                 </tbody>
             </table>
-
         </div> 
       </div>
+   {% comment %} end tabe1 {% endcomment %}
+    
+    <hr>
 
-    </div>
+{% comment %} start table 2 {% endcomment %}
+    <div class="card bg-success mb-3">
+      <div class="card-header"><h2 class="text-light text-center">Done Tasks</h2></div>   
+        <div class="card-body bg-light table-responsive">
+            <table class="table table-hover table-sm">
+              <tbody>
+               {% comment %}start row  {% endcomment %}
+                   
+              {% comment %} start  end row  {% endcomment %}
+                {% for task in tasks_done %}
+                        <tr>
+                            <td>      
+                                {% if task.T_status == False %}
+                                    <h5 class='font-weight-bold'>
+                                      <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                                      <i class="text-secondary far fa-clock fa-2x"></i>
+                                      </a>
+                                      <span>{{ task.T_name }}</span>
+                                    </h5>
+                                {% else %}
+                                    <h5 class='font-weight-light text-muted'>
+                                      <a href="{% url 'todo:change_status' task_id=task.id %}" class="btn" role="button" aria-pressed="true">
+                                      <i class="text-success fas fa-check fa-2x"></i>
+                                      </a> 
+                                      <span><del> {{ task.T_name }}</del></span>
+                                    </h5>
+                                {% endif %} 
+                            </td>   
+                        </tr>     
+                {% endfor %} 
+                 {% comment %} end tasks not done tble{% endcomment %}
+                        {% comment %}start end row  {% endcomment %}
+                        
+                </tbody>
+            </table>
+        </div> 
+      </div>
+  
+
      {{ now }}
 </div>
 {% endblock content  %}
