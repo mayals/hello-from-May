@@ -70,7 +70,9 @@ def change_status(request, task_id):
 
 
 def task_delete(request, task_id):
-    pass
+    task = get_object_or_404(Task,id=task_id)
+    task.delete()
+    return redirect('todo:tasks')
 
 
 
