@@ -81,5 +81,13 @@ def tasks_not_done_delete(request):
     return redirect('todo:tasks')
 
 
+def tasks_done_delete(request):
+    tasks = Task.objects.filter(T_status=True)
+    tasks.delete()
+    return redirect('todo:tasks')
+
+
+
+
 def task_edit(request, task_id):
     pass
