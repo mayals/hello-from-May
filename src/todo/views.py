@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.views.generic import ListView
 from .models import Task
 from django.utils import timezone
-from .forms import AddTask
+from .forms import AddTask,EditTask
 from django.contrib import messages
 
 # class TaskListView(ListView):
@@ -90,4 +90,22 @@ def tasks_done_delete(request):
 
 
 def task_edit(request, task_id):
-    pass
+    task = get_object_or_404(Task, id=task_id)
+#     editform = EditTask(instance=task)
+    
+#     if request.method == 'POST':
+#         if 'T_name_edit' in request.POST:
+#             T_name = request.POST['T_name_edit']
+#             if T_name == task.T_name:
+#                 editform = EditTask(instance=task, data=request.POST)
+#                 if editform.is_valid():
+#                     updated = editform.save(commit=False)
+#                     T_name = editform.cleaned_data['T_name']
+#                     updated.T_name = T_name
+#                     updated.id = task_id
+#                     updated.T_published = timezone.now()
+#                     updated.T_user = request.user
+#                     updated.save()
+#     else:
+#         editform = EditTask(instance=task)
+    return redirect('todo:tasks',args=task_id)

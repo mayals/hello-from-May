@@ -9,3 +9,11 @@ class AddTask(forms.ModelForm):
         model= Task
         fields = ('T_name',)
 
+
+
+class EditTask(forms.ModelForm):
+    T_name = forms.CharField(max_length=30)
+    
+    class Meta:
+        model= Task
+        fields = ('T_name',)

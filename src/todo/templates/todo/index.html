@@ -36,8 +36,7 @@
                         {% comment %} end messages  {% endcomment %}
               {% comment %} start  end row  {% endcomment %}
                 {% for task in tasks_not_done %}
-                        <tr>
-                                 
+                        <tr>     
                                 {% if task.T_status == False %}
                                     <td>
                                     <h5 class='font-weight-bold'>
@@ -63,20 +62,59 @@
                           
                             {% comment %} edit task button  {% endcomment %}
                             <td>
-                              <a href="{% url 'todo:task_edit' task_id=task.id %}"  class='float-right btn'>
-                                  <i class=" text-info far fa-edit fa-1x"></i>
+                              <a type='submit' href="{% url 'todo:task_edit' task_id=task.id %}"   data-toggle="modal" data-target="#exampleModal"  class='float-right btn'>
+                                  <i class="text-info far fa-edit fa-1x"></i>
                               </a>
                             </td>
+                                      {% comment %} start  modal of edit task button{% endcomment %}
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    {% comment %} start modal body {% endcomment %}
+                                    <div class="modal-body">
+                                          <form method='Get'>
+                                               
+                                              
+                            
+                                            <div class="form-group">
+                                                  <input name='T_name_edit' value="{{task.T_name}}" class="form-control form-control-lg" type="text">
+                                                  <input name='task_id' value="{{task.id}}" class="form-control form-control-lg" type="hidden">
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success float-right" id="edit_task_btn" title="Edit Task">
+                                                          <i class="text-light far fa-edit fa-1x"></i> Task
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                                    </button>
+                                                </div>
+                                            </div>  
+                                          </form>
+                                    </div>
+                                    {% comment %} end modal body {% endcomment %}
+                                  </div>
+                                </div>
+                        </div>
+                        {% comment %} end modal of edit button {% endcomment %}
                             {% comment %} delete task button  {% endcomment %}
                             <td>
-                              <a href="{% url 'todo:task_delete' task_id=task.id %}"  class='float-right btn' >
+                              <a href="{% url 'todo:task_delete' task_id=task.id %}" class='float-right btn'>
                                   <i class="text-danger far fa-trash-alt fa-1x"></i>
                               </a>
+                              {{task.id}}
                             </td>    
                         </tr>     
                 {% endfor %} 
                  {% comment %} end tasks not done tble{% endcomment %}
-                        {% comment %}start end row  {% endcomment %}
+                        {% comment %} end row  {% endcomment %}
+                        
+              
+                        
+                        
                         {% comment %} start row add new task form {% endcomment %}
                         {% comment %} add new task form {% endcomment %}
                         <tr class="card-footer bg-light">
