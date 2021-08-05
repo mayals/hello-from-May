@@ -31,14 +31,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # built-in application
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     # my application
     'todo.apps.TodoConfig',
+    'users.apps.UsersConfig',
+    
     # https://django-crispy-forms.readthedocs.io/en/latest/install.html
     'crispy_forms',
 ]
@@ -127,3 +131,9 @@ STATICFILES_DIRS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# LoginView,logoutView
+LOGIN_URL = 'users:UserLogin'
+LOGOUT_URL = 'users:UserLogout'
+
+LOGIN_REDIRECT_URL = 'todo:tasks'
