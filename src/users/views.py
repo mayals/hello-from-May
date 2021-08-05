@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.contrib.auth.views import LoginView, LogoutView
-
-# --- register ----
+from django.contrib.auth.views import LoginView, LogoutView, FormView
+# from django.views.generic.edit import FormView
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
 
 
 
@@ -19,4 +20,11 @@ class UserLogin(LoginView):
 class UserLogout(LogoutView):
     template_name = 'users/logout.html'
     
-    # Redirect to a success page.
+
+
+
+# --- register ----
+class UserSignup(FormView):
+    template_name = 'users/signup.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('users:UserLogin')
