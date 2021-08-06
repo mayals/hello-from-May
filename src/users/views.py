@@ -1,13 +1,14 @@
 from django.shortcuts import render
-from django.contrib.auth.views import LoginView, LogoutView, FormView
-# from django.views.generic.edit import FormView
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic import CreateView
+from .forms import CustomUserCreationForm
 from django.urls import reverse_lazy
 
 
 
 #------ login ---
-class UserLogin(LoginView):
+class UserLoginView(LoginView):
+    success_url = reverse_lazy('todo:tasks')
     template_name = 'users/login.html'
     extra_context = {
         'title': 'To DO Tasks',
@@ -16,15 +17,19 @@ class UserLogin(LoginView):
 
 
 
+
+
+
 # --- logout --------#
-class UserLogout(LogoutView):
+class UserLogoutView(LogoutView):
     template_name = 'users/logout.html'
     
 
 
 
 # --- register ----
-class UserSignup(FormView):
+class UserCreateView(CreateView):
+    form_class = CustomUserCreationForm
     template_name = 'users/signup.html'
-    form_class = UserCreationForm
     success_url = reverse_lazy('users:UserLogin')
+

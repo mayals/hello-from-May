@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
 
-class UserCreationForm(forms.ModelForm):
+class CustomUserCreationForm(forms.ModelForm):
     username = forms.CharField(label='Username', max_length=30,help_text='space not allowed in username')
     first_name = forms.CharField(label='First Name')
     last_name = forms.CharField(label='Last Name')
