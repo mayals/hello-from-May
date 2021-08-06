@@ -4,11 +4,16 @@
 
 
 {% block content %}
-<div class='container'>
-    <br><br><br><br>
-    <h1>Logged out</h1>
-    <p>You have been successfully logged out.
-    You can <a href="{% url 'users:UserLogin' %}">log-in again</a>.</p>
-    
-</div>
+
+<section class='container mt-5 mb-5'>
+     <br><br><br>
+    <div class='bg-white p-5'>
+       
+        <h1>Logged out</h1>
+        <hr>
+        <p>You have been successfully logged out.
+        You can <a href="{% url 'users:UserLogin' %}">log-in again</a>.</p> 
+    </div>
+
+</section>
 {% endblock %}

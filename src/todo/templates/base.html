@@ -24,7 +24,7 @@
         <div class="navbar-brand rotate-n-15 h3">
             <i class="fas fa-tasks fa-3x"></i>
         </div>
-        <div class="navbar-brand mb-0 h1">To Do <sup>!</sup></div>
+        <div class="navbar-brand mb-0 h1"><h1>To Do <sup>!</sup></h1></div>
         <!-- logo end -->
         
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,11 +34,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+         <a class="nav-link pt-2" href="{% url 'todo:tasks' %}"><i class="far fa fa-home mt-2 "></i> Home</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Accounts
+        <a class="nav-link dropdown-toggle pt-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user"></i>   Accounts
         </a>
         {% if request.user.is_authenticated %}
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -54,10 +54,12 @@
         </div>
         {% endif %}
       </li>
-      
-      
     </ul>
-    
+    {% if request.user.is_authenticated %}
+      <div class='nav-item' style="color:yellow;">
+       Welcome {{ user.username }}
+      </div>
+    {% endif %}  
   </div>
 </nav>
 {% comment %} navbar end  {% endcomment %}
