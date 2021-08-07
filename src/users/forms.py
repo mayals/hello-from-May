@@ -1,10 +1,15 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
+
+
+# https: // docs.djangoproject.com/en/3.2/topics/auth/customizing/
 class CustomUserCreationForm(forms.ModelForm):
-    username = forms.CharField(label='Username', max_length=30,help_text='space not allowed in username')
+    username = forms.CharField(
+        label='Username', max_length=30, help_text='space not allowed in username')
     first_name = forms.CharField(label='First Name',required=True)
     last_name = forms.CharField(label='Last Name', required=False)
     email = forms.EmailField(label='Email', required=True)
@@ -27,8 +32,8 @@ class CustomUserCreationForm(forms.ModelForm):
     def clean_password2(self):
         password1 = self.cleaned_data['password1']
         password2 = self.cleaned_data['password2']
-        if password1 != password2:
-            raise forms.ValidationError('ops! the passwords not identical !')
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
         return password2
 
 
@@ -40,3 +45,21 @@ class CustomUserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+
+
+
+
+# https://docs.djangoproject.com/en/3.2/topics/auth/customizing/
+class UserChangeForm(forms.ModelForm):
+    """A form for updating users. Includes all the fields on
+    the user, but replaces the password field with admin's
+    disabled password hash display field.
+    """
+    password = ReadOnlyPasswordHashField()
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name',
+                  'email', 'password')

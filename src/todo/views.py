@@ -4,6 +4,9 @@ from .models import Task
 from django.utils import timezone
 from .forms import AddTask,EditTask
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+
 
 # class TaskListView(ListView):
 #    model = Task
@@ -17,8 +20,11 @@ from django.contrib import messages
 #        return context
 
 
+
+
+@login_required(login_url='users:UserLogin')
 def tasks(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(T_user=request.user)
     
     if request.method == 'POST':
         form = AddTask(request.POST)
