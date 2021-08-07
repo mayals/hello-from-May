@@ -4,16 +4,17 @@
 {% block title %}Create an account{% endblock %}
 
 {% block content %}
-        
-    <div class='container'>
-        <br><br><br><br>
+   <br><br><br><br>    
+    <div class='container bg-white p-5 mt-5'>
+        <br>
         <h1>Create an account</h1>
         <p>Please, sign up using the following form:</p>
-        
-        <form action="." method="post" novalidate>
+         <hr>
+        <br>
+        <form action="." method="POST" novalidate>
                 {{ form|crispy }}
                 {% csrf_token %}
-                <p><input type="submit" value="Create my account"></p>
+                <p><input class='btn btn-info' type="submit" value="Create my account"></p>
         </form>
     </div>
 
