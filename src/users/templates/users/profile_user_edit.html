@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<br><br><br>
+
+   
+    <section class='container bg-white'>
+        <div class="border p-4 mb-5">
+            <legend class="border-bottom pb-1 mb-3">Edit Profile</legend>
+            <br>
+ 
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{user_edit_form|crispy}}
+                {{profile_edit_form|crispy}}
+                <div>
+                    <span class="mb-2" style="display: block"> Profile Image*</span>
+                    current image: <a href="{{user.U_profile.P_image.url}}">{{user.profile.image}}</a>
+                    <br>
+                    <img class="img-fluid rounded-circle border m-2" style="width: 120px; height:120px;"
+                        src="{{user.U_profile.P_image.url}}" alt="{{user.username}}">
+                    
+                    <label for="image" class="btn btn-outline-secondary mt-2">image choice</label>
+                    <input type="file" name="image" id="image" accept="image/*" style="display: none">
+                
+                </div>
+                <button class="btn btn-info mt-4" type="submit">Edit</button>
+            </form>
+
+        </div>
+
+
+    </section>
+{% endblock content %}

@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
-
+from . models import Profile
+from django.views.generic import DetailView
 
 
 # https: // docs.djangoproject.com/en/3.2/topics/auth/customizing/
@@ -28,15 +28,12 @@ class CustomUserCreationForm(forms.ModelForm):
             raise forms.ValidationError('ops! there is another user took this username.')
         return username
 
-   
     def clean_password2(self):
         password1 = self.cleaned_data['password1']
         password2 = self.cleaned_data['password2']
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
-
-
 
 
     def save(self,commit=True,user=None):
@@ -50,16 +47,37 @@ class CustomUserCreationForm(forms.ModelForm):
 
 
 
-
-# https://docs.djangoproject.com/en/3.2/topics/auth/customizing/
-class UserChangeForm(forms.ModelForm):
-    """A form for updating users. Includes all the fields on
-    the user, but replaces the password field with admin's
-    disabled password hash display field.
-    """
-    password = ReadOnlyPasswordHashField()
+# --------------UserUpdateForm----------------------
+class UserUpdateForm(forms.ModelForm):
+    first_name = forms.CharField(label='First Name')
+    last_name = forms.CharField(label='Last Name')
+    email = forms.EmailField(label='Email')
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name',
-                  'email', 'password')
+        fields = ('first_name', 'last_name', 'email')
+
+
+
+# --------------ProfileUpdateForm----------------------
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('P_image', 'P_user')
+
+
+
+
+
+# https://docs.djangoproject.com/en/3.2/topics/auth/customizing/
+# class UserChangeForm(forms.ModelForm):
+#     """A form for updating users. Includes all the fields on
+#     the user, but replaces the password field with admin's
+#     disabled password hash display field.
+#     """
+#     password = ReadOnlyPasswordHashField()
+
+#     class Meta:
+#         model = User
+#         fields = ('username', 'first_name', 'last_name',
+#                   'email', 'password')
