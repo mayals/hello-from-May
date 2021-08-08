@@ -8,5 +8,5 @@ urlpatterns = [
     path('logout/', views.UserLogoutView.as_view(),name='UserLogout'),
     path('signup/', views.UserFormView.as_view(), name='UserForm'),
     path('profileupdate/', views.profile_user_edit, name='profile_user_edit'),
-    # path('ProfileDetailView/<int:pk>/', views.ProfileDetailView.as_view(),name='ProfileDetail'),
+    path('profile/', views.Profile,name='profile'),
 ]

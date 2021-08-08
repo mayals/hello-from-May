@@ -3,14 +3,21 @@
 
 
 {% block content %}
-<br><br><br><br><br><br><br><br>
 
- 
-
-<br><br><br><br><br><br><br><br>
-
+<br><br><br><br><br>
 
 <div class='container'>
+
+<!-- if messages  -->
+                          {% if messages %}
+                              {% for message in messages %}
+                                  <div class="alert alert-{{message.tags}}">
+                                      {{message}}
+                                  </div>
+                              {% endfor %} 
+                          {% endif %}
+<!-- end if messages  -->
+
 
 
     <div class="card bg-secondary text-dark mb-3">
@@ -24,17 +31,7 @@
               <tbody>
                {% comment %}start row  {% endcomment %}
                      {% comment %} messages {% endcomment %}
-                        <tr>                 
-                          <!-- if messages  -->
-                          {% if messages %}
-                              {% for message in messages %}
-                                  <div class="alert alert-{{message.tags}}">
-                                      {{message}}
-                                  </div>
-                              {% endfor %} 
-                          {% endif %}
-                          <!-- end if messages  -->
-                        </tr>
+                        
                         {% comment %} end messages  {% endcomment %}
               {% comment %} start  end row  {% endcomment %}
                 {% for task in tasks_not_done %}
@@ -138,7 +135,7 @@
       </div>
    {% comment %} end tabe1 {% endcomment %}
     
-<br><br><br><br><br>
+<br><br><br><br>
 
 {% comment %} start table 2 {% endcomment %}
     <div class="card bg-success mb-3">

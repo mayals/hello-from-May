@@ -10,26 +10,28 @@
             <legend class="border-bottom pb-1 mb-3">Edit Profile</legend>
             <br>
  
-            <form method="POST" enctype="multipart/form-data">
+
+            <form method="POST" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
-                {{user_edit_form|crispy}}
-                {{profile_edit_form|crispy}}
-                <div>
-                    <span class="mb-2" style="display: block"> Profile Image*</span>
-                    current image: <a href="{{user.U_profile.P_image.url}}">{{user.profile.image}}</a>
-                    <br>
-                    <img class="img-fluid rounded-circle border m-2" style="width: 120px; height:120px;"
-                        src="{{user.U_profile.P_image.url}}" alt="{{user.username}}">
-                    
-                    <label for="image" class="btn btn-outline-secondary mt-2">image choice</label>
-                    <input type="file" name="image" id="image" accept="image/*" style="display: none">
-                
+                <div class='row'>
+                        <div class ='col-md-4'>
+                            <img class="img-fluid rounded-circle border m-2" 
+                                    style="width: 120px; height:120px;"
+                                    src="{{user.U_profile.P_image.url}}" 
+                                    alt="{{user.username}}">
+                        </div>
+                        <div class ='col-md-8'>
+                          {{ profile_edit_form|crispy }}    
+                        </div>     
                 </div>
+                <br><br><br>
+                <div>
+                        {{user_edit_form|crispy}}
+                </div>
+
+                <br>
                 <button class="btn btn-info mt-4" type="submit">Edit</button>
             </form>
-
         </div>
-
-
     </section>
 {% endblock content %}

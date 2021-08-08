@@ -50,7 +50,7 @@ class CustomUserCreationForm(forms.ModelForm):
 # --------------UserUpdateForm----------------------
 class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(label='First Name')
-    last_name = forms.CharField(label='Last Name')
+    last_name = forms.CharField(label='Last Name',required=False )
     email = forms.EmailField(label='Email')
 
     class Meta:
@@ -63,7 +63,7 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('P_image', 'P_user')
+        fields = ('P_image',)
 
 
 

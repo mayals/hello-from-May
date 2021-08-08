@@ -44,7 +44,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'users:UserLogout' %}">Logout</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{% url 'users:profile_user_edit' %}">Profile</a>
+          <a class="dropdown-item" href="{% url 'users:profile' %}">Profile</a>
         </div>
         {% else %}
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -57,8 +57,12 @@
     </ul>
     {% if request.user.is_authenticated %}
       <div class='nav-item' style="color:yellow;">
-       <img class="img-fluid rounded-circle border m-2" style="width: 60px; height:60px;"
-                src="{{user.U_profile.P_image.url}}" alt="{{user.username}}">
+            <a href = {% url 'users:profile_user_edit' %}>
+              <img class="img-fluid rounded-circle border m-2" 
+                   style="width: 60px; height:60px;"
+                     src="{{user.U_profile.P_image.url}}" 
+                     alt="{{user.username}}">
+            </a>
        Welcome {{ user.username }}
       </div>
     {% endif %}  

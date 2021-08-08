@@ -62,14 +62,37 @@ class UserFormView(FormView):
             return redirect('users:UserLogin')
         
         return render(request, self.template_name, {'form': form})
-        
+# -------------------------------------------------------------------#
 
 
+# ---profile --------------------------------
+def profile(request):
+    profile = get_object_or_404(Profile,P_user=request.user)
+    context ={
+        'profile' : profile ,
+    }
+    return render(request,'users/profile.html',context)
+# -------------------------#
+
+
+
+
+# -- profile edit -----------------#
 def profile_user_edit(request):
     profile = get_object_or_404(Profile,P_user=request.user)
     if request.method == 'POST':
         user_edit_form= UserUpdateForm(instance=request.user,data=request.POST)
         profile_edit_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        if user_edit_form.is_valid() and profile_edit_form.is_valid():
+            user_edit = user_edit_form.save(commit=False)
+            user_edit.username = request.user.username
+            user_edit.save()
+            profile_edit = profile_edit_form.save(commit=False)
+            profile_edit.P_user = request.user
+            profile_edit.save()
+            messages.success( request,'you are successfully update your profile')              
+            return redirect('todo:tasks')
+    
     else:
         user_edit_form = UserUpdateForm(instance=request.user)
         profile_edit_form = ProfileUpdateForm(instance=profile)
@@ -80,7 +103,7 @@ def profile_user_edit(request):
 
     }   
     return render(request,'users/profile_user_edit.html',context)
-
+# -------------------------------------------------------
 
 
 
