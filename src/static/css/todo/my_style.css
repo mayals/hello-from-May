@@ -4,7 +4,7 @@ table .bkgr {
 }
 
 body {
-    background-color: #b8d8f8 !important;
+    background-color: #030300 !important;
 }
 
 
@@ -13,3 +13,10 @@ body {
     background-repeat: no-repeat;
     background-size: 100%;
 } */
+
+.pat {
+    background: url("/static/image/todo/pat6.png") 50% 0 repeat fixed;
+    color: black;
+    height: 650px;
+    padding: 100px 0 0 0;
+}
