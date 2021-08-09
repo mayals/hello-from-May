@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 <br><br><br>
@@ -17,7 +18,11 @@
                         <div class ='col-md-4'>
                             <img class="img-fluid rounded-circle border m-2" 
                                     style="width: 120px; height:120px;"
-                                    src="{{user.U_profile.P_image.url}}" 
+                                        {% if user.U_profile.P_image %}
+                                            src="{{user.U_profile.P_image.url}}" 
+                                        {% else %}
+                                            src="{% static 'image/users/default.jpg' %}"
+                                        {% endif %}
                                     alt="{{user.username}}">
                         </div>
                         <div class ='col-md-8'>

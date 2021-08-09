@@ -66,8 +66,9 @@ class UserFormView(FormView):
 
 
 # ---profile --------------------------------
-def profile(request):
-    profile = get_object_or_404(Profile,P_user=request.user)
+def profile_view(request):
+    profile = get_object_or_404(Profile, P_user=request.user)
+    print(profile)
     context ={
         'profile' : profile ,
     }
