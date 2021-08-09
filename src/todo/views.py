@@ -8,19 +8,6 @@ from django.contrib.auth.decorators import login_required
 
 
 
-# class TaskListView(ListView):
-#    model = Task
-#    template_name = 'todo/index.html'
-#    context_object_name = 'tasks' #default is 'object_list'
-
-#    def get_context_data(self, **kwargs):
-#        context = super().get_context_data(**kwargs)
-#        context['now'] = timezone.now()
-#        context['title'] = 'all tasks'
-#        return context
-
-
-
 
 @login_required(login_url='users:UserLogin')
 def tasks(request):
@@ -38,15 +25,24 @@ def tasks(request):
                             newtask.T_status = False
                             newtask.T_user = request.user
                             newtask= form.save()
+                
+                else: 
+                        print('novalid')
+                        # Get the text that was entered in `T_name`
+                        T_name = request.POST.get("T_name")
+                        length_of_T_name = len(T_name)
+                        print(length_of_T_name)
+                        # Simply send your own message
+                        messages.warning(request, f"Error: maximum length limit is 30 characters (it has {length_of_T_name}).")
+                
+                return redirect('todo:tasks')
+                  
             else:
                 messages.warning(request, 'please add task.')
                 return redirect('todo:tasks')
-       
-
     else:
         form = AddTask()    
-    
-    
+  
     context = {
         'tasks': tasks,
         'tasks_done': tasks.filter(T_status=True),
@@ -54,12 +50,12 @@ def tasks(request):
         'form' : form ,
     }
     return render(request, 'todo/index.html', context)
+# ----------------------------------------------------
 
 
 
 
-
-
+# ---change status -- done/not done ---#
 def change_status(request, task_id):
     tasks = Task.objects.all()
     task = get_object_or_404(Task,id=task_id)
@@ -72,29 +68,46 @@ def change_status(request, task_id):
         task.save()
 
     return redirect('todo:tasks')
-    
+# ----------------------------------------- 
 
 
+
+
+# --- task delete ---------------------------
+@login_required(login_url='users:UserLogin')
 def task_delete(request, task_id):
     task = get_object_or_404(Task,id=task_id)
     task.delete()
     return redirect('todo:tasks')
+# ---------------------------
 
 
+
+
+#  all tasks_not_done_delete ----
+@login_required(login_url='users:UserLogin')
 def tasks_not_done_delete(request):
     tasks = Task.objects.filter(T_status=False)
     tasks.delete()
     return redirect('todo:tasks')
+# ---------------------------
 
 
+
+#  all tasks_done_delete ----
+@login_required(login_url='users:UserLogin')
 def tasks_done_delete(request):
     tasks = Task.objects.filter(T_status=True)
     tasks.delete()
     return redirect('todo:tasks')
+# ---------------------------
 
 
 
 
+
+# ----task_edit ---- need complate !------------------
+@login_required(login_url='users:UserLogin')
 def task_edit(request, task_id):
     task = get_object_or_404(Task, id=task_id)
 #     editform = EditTask(instance=task)
@@ -115,3 +128,4 @@ def task_edit(request, task_id):
 #     else:
 #         editform = EditTask(instance=task)
     return redirect('todo:tasks',args=task_id)
+# ----------------------------------------------

@@ -8,11 +8,11 @@ from django.contrib import messages
 from . models import Profile
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 
-
-#------ login ---
+#------ login ---------------
 class UserLoginView(LoginView):
     success_url = reverse_lazy('todo:tasks')
     template_name = 'users/login.html'
@@ -20,14 +20,14 @@ class UserLoginView(LoginView):
         'title': 'To DO Tasks',
         'sub_title': 'log-in',
         }
-
+# --------------------------------------
 
 
 
 # --- logout --------#
 class UserLogoutView(LogoutView):
     template_name = 'users/logout.html'
-    
+#------------------------------   # 
 
 
 
@@ -61,11 +61,15 @@ class UserFormView(FormView):
             messages.success(request, f'good job {user}, you are register successfuly')
             return redirect('users:UserLogin')
         
+        
         return render(request, self.template_name, {'form': form})
 # -------------------------------------------------------------------#
 
 
+
+
 # ---profile --------------------------------
+@login_required(login_url='users:UserLogin')
 def profile_view(request):
     profile = get_object_or_404(Profile, P_user=request.user)
     print(profile)
@@ -79,6 +83,7 @@ def profile_view(request):
 
 
 # -- profile edit -----------------#
+@login_required(login_url='users:UserLogin')
 def profile_user_edit(request):
     profile = get_object_or_404(Profile,P_user=request.user)
     if request.method == 'POST':
@@ -105,6 +110,10 @@ def profile_user_edit(request):
     }   
     return render(request,'users/profile_user_edit.html',context)
 # -------------------------------------------------------
+
+
+
+
 
 
 
