@@ -27,6 +27,10 @@ class UserLoginView(LoginView):
 # --- logout --------#
 class UserLogoutView(LogoutView):
     template_name = 'users/logout.html'
+    extra_context = {
+        'title': 'To DO Tasks',
+        'sub_title': 'log-out',
+    }
 #------------------------------   # 
 
 
@@ -37,13 +41,21 @@ class UserFormView(FormView):
     template_name = 'users/signup.html'
     success_url = reverse_lazy('users:UserLogin')
     initial = {'key': 'value'}
+    extra_context = {
+        'title': 'To DO Tasks',
+        'sub_title': 'Register',
+    }
     
 
     def get(self, request, *args, **kwargs):
         """Handle GET requests: instantiate a blank version of the form."""
-        
         form = self.form_class(initial=self.initial)
-        return render(request, self.template_name, {'form': form})
+        context ={
+            'form': form,
+            'title': 'To DO Tasks',
+            'sub_title': 'Register',
+        }
+        return render(request, self.template_name,context)
     
     
     
@@ -62,7 +74,12 @@ class UserFormView(FormView):
             return redirect('users:UserLogin')
         
         
-        return render(request, self.template_name, {'form': form})
+        context ={
+            'form': form,
+            'title': 'To DO Tasks',
+            'sub_title': 'Register',
+        }
+        return render(request, self.template_name, context)
 # -------------------------------------------------------------------#
 
 

@@ -48,6 +48,8 @@ def tasks(request):
         'tasks_done': tasks.filter(T_status=True),
         'tasks_not_done': tasks.filter(T_status=False),
         'form' : form ,
+        'title': 'To DO Tasks',
+        'sub_title': 'index',
     }
     return render(request, 'todo/index.html', context)
 # ----------------------------------------------------
