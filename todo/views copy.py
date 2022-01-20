@@ -111,27 +111,26 @@ def tasks_done_delete(request):
 # ----task_edit ---- need complate !------------------
 @login_required(login_url='users:UserLogin')
 def task_edit(request,task_id):
+    task = get_object_or_404(Task, id=task_id)
+    editform = EditTask(instance=task)
+
     if request.method == 'POST':
-       
-        T_name = request.POST.get('T_name_edit')
-        if T_name:
-            length_of_T_name = len(T_name)
-            print(length_of_T_name)
-            if length_of_T_name > 30:
-                # Simply send your own message
-                messages.warning(request, f"Error: maximum length limit is 30 characters (it has {length_of_T_name}).")
-                return redirect('todo:tasks')
-            
-            else:
-                task_id = request.POST.get('edit_id')
-                T_name = request.POST.get('T_name_edit')
-                T_user = request.user
-                T_published = timezone.now()
-                task = Task(id=task_id, T_name=T_name,T_user=T_user, T_published=T_published)
-                task.save()
-                messages.success(request, 'edit successfully.')
-                return redirect('todo:tasks')
-   
+        if 'edit_task_btn' in request.POST:
+            editform = EditTask(instance=task, data=request.POST)
+            if editform.is_valid():
+                    updated = editform.save(commit=False)
+                    T_name = editform.cleaned_data['T_name']
+                    updated.T_name = T_name
+                    updated.id = task_id
+                    updated.T_published = timezone.now()
+                    updated.T_user = request.user
+                    updated.save()
+                    messages.success(request, 'edit successfully.')
+                    return redirect('todo:tasks')
     else:
-        return redirect('todo:tasks')
+        editform = EditTask(instance=task)
+    context ={
+        'editform': editform,
+    }
+    return redirect(request,'todo/index.html',context)
 # ----------------------------------------------

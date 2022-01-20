@@ -61,7 +61,7 @@
                         <!-- button edit tasks not done -->
                         <!-- this buton only open jave script alert id="exampleModal"-->
                         <td>
-                          <a  data-target="#exampleModal" href="{% url 'todo:task_edit' task_id=task.id %}" type='submit' data-toggle="modal"  class='float-right btn'>
+                          <a href="{% url 'todo:task_edit' task_id=task.id %}"  data-target="#exampleModal"  type='submit' data-toggle="modal"  class='float-right btn'>
                               <i class="text-info far fa-edit fa-1x"></i>
                           </a>
                         </td>
@@ -79,25 +79,19 @@
                                       </div>
                                       <!-- start  modal-body   form -->
                                       <div class="modal-body">
-                                            <form method='Post' action="{% url 'todo:task_edit' task_id=task.id %}">
+                                            <form method='Post' action="">
                                             <div class="form-group">  
-                                               {% csrf_token %}
-                                                <div class="form-group">
-                                                    <input name='T_name_edit' id='T_name_edit' value="{{task.T_name}}" class="form-control form-control-lg" type="text">
-                                                    <input name='edit_id'  id='edit_id' value="{{task.id}}" class="form-control form-control-lg" type="hidden">
-                                                </div> 
-                                                <!-- start  modal-foter inside modal body -->
+                                                {% csrf_token %}
+                                                {{editform}}
                                                 <div class="modal-footer" > 
-                                                    <button  type='submit' class="btn btn-success float-right" id="edit_task_btn" title="Edit Task">
-                                                        <i class="text-light far fa-edit fa-1x"></i> 
-                                                          Task
-                                                    </button>
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                          Close
-                                                    </button>
-                                                </div>
-                                              </div>
-                                              </form>
+                                                  <button  type='submit' class="btn btn-success float-right" id="edit_task_btn" title="Edit Task">
+                                                      <i class="text-light far fa-edit fa-1x"></i>Task   
+                                                  </button>
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                                  </button>
+                                                </div>    
+                                            </div>
+                                            </form>
                                       </div>
                                       <!-- end modal-body form -->
                                     </div>
@@ -151,10 +145,10 @@
                         
                         <!-- start row add new task form -->
                         <tr class="card-footer bg-light">
-                          <form method='POST' class="form-group"> 
+                          <form method='POST' class="form-group" > 
                               {% csrf_token %}
                               <td>
-                                <input name='T_name' class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 30 characters)">
+                                <input name='T_name'  class="form-control form-control-lg" type="text" placeholder="Enter your Task (Max. 30 characters)">
                                 <input name='task_id' class="form-control form-control-lg" type="hidden">
                               </td>
                               <td>
